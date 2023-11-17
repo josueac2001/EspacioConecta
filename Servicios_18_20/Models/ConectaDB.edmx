@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ConectaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="espacio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="direccion" Type="nvarchar" MaxLength="100" />
+          <Property Name="municipioID" Type="int" />
+          <Property Name="tipoEspacioID" Type="int" />
+          <Property Name="precio" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="descripcion" Type="nvarchar(max)" />
+          <Property Name="inmuebles" Type="nvarchar(max)" />
+          <Property Name="titulo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="foto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rutaimg" Type="nvarchar(max)" />
+          <Property Name="espacioID" Type="int" />
+        </EntityType>
+        <EntityType Name="municipio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tipoEspacio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_Espacio">
+          <End Role="espacio" Type="Self.espacio" Multiplicity="0..1" />
+          <End Role="foto" Type="Self.foto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="espacio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foto">
+              <PropertyRef Name="espacioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Municipio">
+          <End Role="municipio" Type="Self.municipio" Multiplicity="0..1" />
+          <End Role="espacio" Type="Self.espacio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="municipio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="espacio">
+              <PropertyRef Name="municipioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoEspacio">
+          <End Role="tipoEspacio" Type="Self.tipoEspacio" Multiplicity="0..1" />
+          <End Role="espacio" Type="Self.espacio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoEspacio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="espacio">
+              <PropertyRef Name="tipoEspacioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConectaDBModelStoreContainer">
+          <EntitySet Name="espacio" EntityType="Self.espacio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="foto" EntityType="Self.foto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="municipio" EntityType="Self.municipio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoEspacio" EntityType="Self.tipoEspacio" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Espacio" Association="Self.FK_Espacio">
+            <End Role="espacio" EntitySet="espacio" />
+            <End Role="foto" EntitySet="foto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Municipio" Association="Self.FK_Municipio">
+            <End Role="municipio" EntitySet="municipio" />
+            <End Role="espacio" EntitySet="espacio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoEspacio" Association="Self.FK_TipoEspacio">
+            <End Role="tipoEspacio" EntitySet="tipoEspacio" />
+            <End Role="espacio" EntitySet="espacio" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ConectaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="espacio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="municipioID" Type="Int32" />
+          <Property Name="tipoEspacioID" Type="Int32" />
+          <Property Name="precio" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="inmuebles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="fotoes" Relationship="Self.FK_Espacio" FromRole="espacio" ToRole="foto" />
+          <NavigationProperty Name="municipio" Relationship="Self.FK_Municipio" FromRole="espacio" ToRole="municipio" />
+          <NavigationProperty Name="tipoEspacio" Relationship="Self.FK_TipoEspacio" FromRole="espacio" ToRole="tipoEspacio" />
+        </EntityType>
+        <EntityType Name="foto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rutaimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="espacioID" Type="Int32" />
+          <NavigationProperty Name="espacio" Relationship="Self.FK_Espacio" FromRole="foto" ToRole="espacio" />
+        </EntityType>
+        <EntityType Name="municipio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="espacios" Relationship="Self.FK_Municipio" FromRole="municipio" ToRole="espacio" />
+        </EntityType>
+        <EntityType Name="tipoEspacio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="espacios" Relationship="Self.FK_TipoEspacio" FromRole="tipoEspacio" ToRole="espacio" />
+        </EntityType>
+        <Association Name="FK_Espacio">
+          <End Role="espacio" Type="Self.espacio" Multiplicity="0..1" />
+          <End Role="foto" Type="Self.foto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="espacio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foto">
+              <PropertyRef Name="espacioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Municipio">
+          <End Role="municipio" Type="Self.municipio" Multiplicity="0..1" />
+          <End Role="espacio" Type="Self.espacio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="municipio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="espacio">
+              <PropertyRef Name="municipioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoEspacio">
+          <End Role="tipoEspacio" Type="Self.tipoEspacio" Multiplicity="0..1" />
+          <End Role="espacio" Type="Self.espacio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoEspacio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="espacio">
+              <PropertyRef Name="tipoEspacioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConectaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="espacios" EntityType="Self.espacio" />
+          <EntitySet Name="fotoes" EntityType="Self.foto" />
+          <EntitySet Name="municipios" EntityType="Self.municipio" />
+          <EntitySet Name="tipoEspacios" EntityType="Self.tipoEspacio" />
+          <AssociationSet Name="FK_Espacio" Association="Self.FK_Espacio">
+            <End Role="espacio" EntitySet="espacios" />
+            <End Role="foto" EntitySet="fotoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Municipio" Association="Self.FK_Municipio">
+            <End Role="municipio" EntitySet="municipios" />
+            <End Role="espacio" EntitySet="espacios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoEspacio" Association="Self.FK_TipoEspacio">
+            <End Role="tipoEspacio" EntitySet="tipoEspacios" />
+            <End Role="espacio" EntitySet="espacios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ConectaDBModelStoreContainer" CdmEntityContainer="ConectaDBEntities">
+          <EntitySetMapping Name="espacios">
+            <EntityTypeMapping TypeName="ConectaDBModel.espacio">
+              <MappingFragment StoreEntitySet="espacio">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="municipioID" ColumnName="municipioID" />
+                <ScalarProperty Name="tipoEspacioID" ColumnName="tipoEspacioID" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="inmuebles" ColumnName="inmuebles" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fotoes">
+            <EntityTypeMapping TypeName="ConectaDBModel.foto">
+              <MappingFragment StoreEntitySet="foto">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="rutaimg" ColumnName="rutaimg" />
+                <ScalarProperty Name="espacioID" ColumnName="espacioID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="municipios">
+            <EntityTypeMapping TypeName="ConectaDBModel.municipio">
+              <MappingFragment StoreEntitySet="municipio">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoEspacios">
+            <EntityTypeMapping TypeName="ConectaDBModel.tipoEspacio">
+              <MappingFragment StoreEntitySet="tipoEspacio">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

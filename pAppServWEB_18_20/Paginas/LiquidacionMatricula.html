@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LIQUIDACIÓN MATRÍCULA</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+</head>
+<body class="hold-transition sidebar-mini">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12" id="dvMenu">
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">LIQUIDACIÓN DE MATRÍCULAS</h3>
+                        </div>
+                        <form id="frmIncapacidades">
+                            <div class="card-body">
+                                <div class="card card-gray-dark">
+                                    <div class="card-header">
+                                        <h3 class="card-title">DATOS ENTRADA</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtComplementarias">Asignaturas complementarias</label>
+                                                    <input type="number" class="form-control" id="txtComplementarias" placeholder="Cantidad asignaturas">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtComponentesBasicos">Asignaturas componentes básicos</label>
+                                                    <input type="number" class="form-control" id="txtComponentesBasicos" placeholder="Cantidad asignaturas">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtEspecializadas">Asignaturas especializadas</label>
+                                                    <input type="number" class="form-control" id="txtEspecializadas" placeholder="Cantidad asignaturas">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <button type="button" id="btnCalcular" class="btn-block btn-lg btn-primary">CALCULAR NOTA</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-danger">
+                                    <div class="card-header">
+                                        <h3 class="card-title">RESPUESTA</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <label for="txtCreditos">Número de créditos</label>
+                                                    <input type="text" class="form-control" id="txtCreditos" placeholder="Créditos" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="txtValorCredito">Valor del crédito</label>
+                                                    <input type="text" class="form-control" id="txtValorCredito" placeholder="Valor de cada crédito" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtValorAntesIVA">Valor antes de IVA</label>
+                                                    <input type="text" class="form-control" id="txtValorAntesIVA" placeholder="Valor antes de IVA" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtValorIVA">Valor IVA</label>
+                                                    <input type="text" class="form-control" id="txtValorIVA" placeholder="Valor del IVA" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtValorPagar">Total pago matrícula</label>
+                                                    <input type="text" class="form-control" id="txtValorPagar" placeholder="Valor pagar" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div id="dvMensaje" class=""></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/LiquidacionMatricula.js"></script>
+</body>
+</html>
